@@ -72,7 +72,7 @@ def set_bin(x, frequency):
     return range(10, 500, 10), cost_function
 
 def psth(x, save=False):
-    """function which dras the normalized psth of a given neuron
+    """function which draws the normalized psth of a given neuron
     ---
     Arguments:
         x : dataframe of a given neuron
@@ -98,7 +98,7 @@ def psth(x, save=False):
         
         for time in all_spikes:
             for index, ith_bin in enumerate(bins):
-                if ith_bin[0]<time<ith_bin[1]:
+                if ith_bin[0]<time<=ith_bin[1]:
                     count[index] = count[index] + 1
         
         x_axis = [np.mean(ith_bin) for ith_bin in bins]
@@ -110,7 +110,6 @@ def psth(x, save=False):
     
     if save:
         plt.savefig(f"figures/psth/psth_{name}.png")
-    
     plt.show()
 
        
