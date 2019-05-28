@@ -113,7 +113,8 @@ for number, trial  in enumerate(table[1:, 5]):
         for spike in train[0]:
             spikes.append(spike)
     value = [number for i in range(len(spikes))]
-    plt.plot(spikes, value, marker='.', linestyle = 'none', color="black", markersize = 0.5)
+    plt.plot(spikes, value, marker='.', linestyle = 'none', 
+             color="black", markersize = 0.5)
 
 plt.show()
 
