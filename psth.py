@@ -120,7 +120,7 @@ file_list = os.listdir(path)
 for neuron in file_list:
     data = pd.read_csv(os.path.join(path,neuron), index_col=0)
     name = neuron.split(sep=".")[0]
-    psth(data, save=True)
+    psth(data, save=False)
 
 
 #%% drawing the cost function

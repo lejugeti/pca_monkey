@@ -69,4 +69,37 @@ for i, ith_file in enumerate(file_list):
 
 #save the matrix into a text file
 cov_matrix.dump("covariance_matrix.txt")
+
+#%% second technique without the np.cov function    
+path = "count_data"
+ 
+file_list = glob.glob(os.path.join(path, "R*"))
+cov_matrix = np.zeros((len(file_list), len(file_list)))
+
+done = 0
+for i, ith_file in enumerate(file_list):
+    neuron_i = pd.read_csv(ith_file, index_col=0)
+#    count_i = extract_all(neuron_i)
+    mean_i = mean_overall(neuron_i)
+    
+    for j, jth_file in enumerate(file_list):
+        neuron_j = pd.read_csv(jth_file, index_col=0)
+#        count_j = extract_all(neuron_j)
+        mean_j = mean_overall(neuron_j)
+#        cov_matrix[i,j] = np.cov(count_i, count_j)[0,1]
+        cov = 0
+        for row in range(len(neuron_i)):
+            count_i = extract(neuron_i.at[row, "count"])
+            count_j = extract(neuron_j.at[row, "count"])
+            for time_bin in range(len(count_i)):
+                cov += (count_i[time_bin]-mean_i)*(count_j[time_bin]-mean_j)
         
+        cov_matrix[i,j] = cov/120
+        done += 1
+        print(100*done/(len(file_list)**2))
+
+#save the matrix into a text file
+#cov_matrix.dump("covariance_matrix.txt")
+#%% see the axis
+
+cov_matrix = np.load("covariance_matrix.txt", allow_pickle=True)
